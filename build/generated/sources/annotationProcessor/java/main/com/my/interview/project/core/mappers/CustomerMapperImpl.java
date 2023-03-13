@@ -11,8 +11,8 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-03-12T22:49:48-0300",
-    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 11.0.17 (Amazon.com Inc.)"
+    date = "2023-03-13T02:40:54-0300",
+    comments = "version: 1.5.1.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.6.jar, environment: Java 11.0.15 (Oracle Corporation)"
 )
 public class CustomerMapperImpl implements CustomerMapper {
 
@@ -24,7 +24,8 @@ public class CustomerMapperImpl implements CustomerMapper {
 
         CustomerResponseDto customerResponseDto = new CustomerResponseDto();
 
-        customerResponseDto.setFistName( dao.getFistName() );
+        customerResponseDto.setId( dao.getId() );
+        customerResponseDto.setFirstName( dao.getFirstName() );
         customerResponseDto.setLastName( dao.getLastName() );
         customerResponseDto.setContactList( contactListToContactDtoList( dao.getContactList() ) );
 
@@ -40,7 +41,7 @@ public class CustomerMapperImpl implements CustomerMapper {
         Customer customer = new Customer();
 
         customer.setId( requestDto.getId() );
-        customer.setFistName( requestDto.getFistName() );
+        customer.setFirstName( requestDto.getFirstName() );
         customer.setLastName( requestDto.getLastName() );
         customer.setContactList( contactDtoListToContactList( requestDto.getContactList() ) );
 

@@ -25,7 +25,8 @@ public class Contact {
     private String contact;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer.id")
+    @JoinColumn(name = "customer_id")
+    @Setter
     private Customer customer;
 
 }

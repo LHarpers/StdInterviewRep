@@ -25,14 +25,16 @@ public class Customer {
 
     @Column
     @NotNull
-    private String fistName;
+    private String firstName;
 
     @Column
     @NotNull
     private String lastName;
 
-    @Column
-    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    private List<Contact> contactList = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "customer"
+    )
+    private List<Contact> contactList = new ArrayList<>();;
 
 }

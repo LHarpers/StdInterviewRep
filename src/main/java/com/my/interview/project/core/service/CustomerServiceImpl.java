@@ -2,8 +2,10 @@ package com.my.interview.project.core.service;
 
 import com.my.interview.project.core.mappers.ContactMapper;
 import com.my.interview.project.core.mappers.CustomerMapper;
+import com.my.interview.project.database.mysql.entities.Contact;
 import com.my.interview.project.database.mysql.entities.Customer;
 import com.my.interview.project.database.mysql.repositories.CustomerRepository;
+import com.my.interview.project.web.resources.ContactDto;
 import com.my.interview.project.web.resources.request.CustomerRequestDto;
 import com.my.interview.project.web.resources.response.CustomerResponseDto;
 import org.springframework.stereotype.Service;
@@ -24,10 +26,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerResponseDto createNewCustomer(CustomerRequestDto customer) {
+        Customer customerDatabase = CustomerMapper.MAPPER.requestDtoToDao(customer);
+        customerDatabase.getContactList().forEach(contact -> {
+            contact.setCustomer(customerDatabase);
+        });
 
         return CustomerMapper.MAPPER.daoToResponseDto(
-                customerRepository.save(
-                        CustomerMapper.MAPPER.requestDtoToDao(customer)));
+                customerRepository.save(customerDatabase));
     }
 
     @Override
@@ -53,10 +58,11 @@ public class CustomerServiceImpl implements CustomerService {
 
         Customer customerDatabase = customerRepository.getReferenceById(customer.getId());
 
-        if(customer.getFistName() != null) customerDatabase.setFistName(customer.getFistName());
+        if(customer.getFirstName() != null) customerDatabase.setFirstName(customer.getFirstName());
         if(customer.getLastName() != null) customerDatabase.setLastName(customer.getLastName());
         if(customer.getContactList() != null) customerDatabase.setContactList(customer.getContactList()
-                .stream().map(ContactMapper.MAPPER::dtoToDao)
+                .stream().map((ContactMapper.MAPPER::dtoToDao))
+                .peek(contact -> contact.setCustomer(customerDatabase))
                 .collect(Collectors.toList()));
 
         return CustomerMapper.MAPPER.daoToResponseDto(customerRepository.save(customerDatabase));

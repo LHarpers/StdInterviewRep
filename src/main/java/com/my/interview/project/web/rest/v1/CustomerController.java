@@ -48,6 +48,6 @@ public class CustomerController extends RestControllerBase {
     @DeleteMapping("/delete/{id}")
     public void updateCustomer(@NotNull @PathVariable Long id){
         customerService.deleteCustomer(id);
-        ResponseEntity.ok();////////////////////////////////////////////////////////////////////////////////////////////////
+        ResponseEntity.ok();
     }
 }

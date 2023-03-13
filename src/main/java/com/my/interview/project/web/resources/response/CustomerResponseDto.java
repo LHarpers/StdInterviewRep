@@ -13,7 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 public class CustomerResponseDto {
 
-    private String fistName;
+    private Long id;
+
+    private String firstName;
 
     private String lastName;
 
